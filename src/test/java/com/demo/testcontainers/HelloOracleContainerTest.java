@@ -16,7 +16,7 @@ import org.testcontainers.containers.OracleContainer;
 public class HelloOracleContainerTest {
 
   @Rule
-  public OracleContainer oracle = new OracleContainer("oracleinanutshell/oracle-xe-11g");
+  public OracleContainer oracle = new OracleContainer();
 
   @Test
   public void someTestMethod() throws SQLException {
