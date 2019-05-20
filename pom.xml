@@ -22,6 +22,7 @@
     <hamcrest.version>1.3</hamcrest.version>
     <mockito.version>2.27.0</mockito.version>
     <testcontainers.version>1.11.2</testcontainers.version>
+    <liquibase.version>3.6.3</liquibase.version>
 
 
   </properties>
@@ -48,6 +49,13 @@
       <version>${logback.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>${liquibase.version}</version>
+    </dependency>
+
 
 
     <dependency>
