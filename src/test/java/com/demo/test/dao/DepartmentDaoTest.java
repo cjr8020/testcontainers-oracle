@@ -9,8 +9,12 @@ import com.demo.entity.Department;
 import com.demo.test.support.AbstractPersistenceTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DepartmentDaoTest extends AbstractPersistenceTest {
+  private static Logger logger = LoggerFactory.getLogger(DepartmentDaoTest.class);
+
 
   private DepartmentDao dao;
 

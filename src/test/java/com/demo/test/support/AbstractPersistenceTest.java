@@ -62,7 +62,7 @@ public class AbstractPersistenceTest extends BaseTest {
    * @throws LiquibaseException
    */
   @Before
-  public void before() throws SQLException, LiquibaseException {
+  public void setupHandleAndMigrateDatabase() throws SQLException, LiquibaseException {
     handle = Jdbi.create(getTestDataSource()).installPlugin(new SqlObjectPlugin()).open();
     // execute test DB migration
     migrateDatabase();
@@ -76,7 +76,7 @@ public class AbstractPersistenceTest extends BaseTest {
    * @throws DatabaseException
    */
   @After
-  public void after() throws DatabaseException {
+  public void closeHandleAndDropAll() throws DatabaseException {
     handle.close();
     liquibase.dropAll();
   }
