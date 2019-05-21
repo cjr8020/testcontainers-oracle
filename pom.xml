@@ -16,6 +16,9 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
+    <oracle.ojdbc.version>12.1.0.2</oracle.ojdbc.version>
+    <jdbi3.version>3.8.2</jdbi3.version>
+
     <logback.version>1.2.3</logback.version>
 
     <!-- test properties -->
@@ -32,23 +35,39 @@
     <dependency>
       <groupId>com.oracle</groupId>
       <artifactId>ojdbc7</artifactId>
-      <version>12.1.0.2</version>
+      <version>${oracle.ojdbc.version}</version>
     </dependency>
 
-    <!-- test dependencies -->
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-core</artifactId>
+      <version>${jdbi3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-stringtemplate4</artifactId>
+      <version>${jdbi3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-sqlobject</artifactId>
+      <version>${jdbi3.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <version>${logback.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
-      <scope>test</scope>
     </dependency>
+
+    <!-- test dependencies -->
+
+
 
     <dependency>
       <groupId>org.liquibase</groupId>
@@ -56,7 +75,12 @@
       <version>${liquibase.version}</version>
     </dependency>
 
-
+    <dependency>
+      <groupId>org.jdbi</groupId>
+      <artifactId>jdbi3-testing</artifactId>
+      <version>${jdbi3.version}</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.hamcrest</groupId>

@@ -1,0 +1,32 @@
+group DepartmentDao;
+
+readById() ::= <<
+SELECT
+  ID,
+  NAME,
+  ACTIVE
+FROM
+    TEST.DEPARTMENT
+WHERE
+    ID = :id
+>>
+
+selectDepartmentSeqNextVal() ::=<<
+SELECT TEST.DEPARTMENT_SEQ.nextval FROM dual
+>>
+
+selectDepartmentSeqCurrVal() ::=<<
+SELECT TEST.DEPARTMENT_SEQ.currval FROM dual
+>>
+
+update() ::=<<
+UPDATE
+    TEST.DEPARTMENT
+SET
+    ID = :id,
+    NAME = :name,
+    ACTIVE = :active
+
+WHERE
+    ID = :id
+>>

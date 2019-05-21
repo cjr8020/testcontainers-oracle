@@ -13,6 +13,9 @@ import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import oracle.jdbc.pool.OracleDataSource;
+import org.jdbi.v3.core.Handle;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -29,28 +32,58 @@ public class AbstractPersistenceTest extends BaseTest {
   public static OracleContainer oracleContainer;
 
   private Liquibase liquibase;
+  private Handle handle;
+
+  /**
+   * Obtain connection to test DB in Container.
+   * @return Handle
+   */
+  protected Handle getHandle() {
+    return this.handle;
+  }
 
 
+  /**
+   * Creates Oracle Container
+   */
   @BeforeClass
   public static void beforeClass() {
-
     logger.info("Starting Oracle Container ... {}", LocalDateTime.now());
     oracleContainer = new OracleContainer();
     oracleContainer.start();
     logger.info("Oracle Container started. {}", LocalDateTime.now());
   }
 
+  /**
+   * Before each test.
+   * Creates Jdbi handle (connection).
+   * Executes DB migration before each test.
+   * @throws SQLException
+   * @throws LiquibaseException
+   */
   @Before
   public void before() throws SQLException, LiquibaseException {
+    handle = Jdbi.create(getTestDataSource()).installPlugin(new SqlObjectPlugin()).open();
     // execute test DB migration
     migrateDatabase();
   }
 
+
+  /**
+   * After each test.
+   * Closes Jdbi handle (connection).
+   * Drops everything in the test DB after each test.
+   * @throws DatabaseException
+   */
   @After
   public void after() throws DatabaseException {
+    handle.close();
     liquibase.dropAll();
   }
 
+  /**
+   * Stops the Oracle Container after all Persistence test suites are complete.
+   */
   @AfterClass
   public static void afterClass() {
     logger.info("Stopping Oracle Container ... {}", LocalDateTime.now());
@@ -59,8 +92,7 @@ public class AbstractPersistenceTest extends BaseTest {
   }
 
   /**
-   * NOTE: all properties are prefixed with "jdbc".  This prefix identifies
-   * DataSource properties for DB connections to the SIC schema.
+   * Test DataSource
    *
    * @return DataSourceFactory
    */
