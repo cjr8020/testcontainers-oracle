@@ -3,6 +3,7 @@ package com.demo.test.support;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import javax.sql.DataSource;
+import liquibase.CatalogAndSchema;
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
@@ -78,7 +79,8 @@ public class AbstractPersistenceTest extends BaseTest {
   @After
   public void closeHandleAndDropAll() throws DatabaseException {
     handle.close();
-    liquibase.dropAll();
+    CatalogAndSchema catalogAndSchema = new CatalogAndSchema("", "TEST");
+    liquibase.dropAll(catalogAndSchema);
   }
 
   /**
